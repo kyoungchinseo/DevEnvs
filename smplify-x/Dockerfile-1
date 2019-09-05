@@ -1,0 +1,50 @@
+FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
+
+## update
+RUN apt-get update
+
+## install basic stuffs
+RUN apt-get install -y \    
+    python3-dev \
+    curl \ 
+    git \ 
+    vim \
+    wget \
+    build-essential \    
+    ca-certificates \
+    cmake \
+    pkg-config \
+    less
+
+
+
+## install pip
+RUN apt-get install -y python-pip
+RUN apt-get install -y python3-pip
+
+## install pytorch 
+RUN pip3 install torch torchvision
+
+## install smplx
+RUN pip3 install smplx
+
+## install vposer & dependencies
+RUN pip3 install git+https://github.com/nghorbani/configer
+RUN pip3 install torchgeometry==0.1.2
+
+RUN pip3 install pyrender
+
+#RUN wget https://github.com/mmatl/travis_debs/raw/master/xenial/mesa_18.3.3-0.deb && \
+#    dpkg -i ./mesa_18.3.3-0.deb || true && \
+#    apt install -y -f
+RUN pip3 install git+https://github.com/nghorbani/human_body_prior
+
+
+## install homogenus 
+RUN pip install git+https://github.com/nghorbani/homogenus
+
+
+## install tensorflow and keras
+#RUN pip --no-cache-dir install \
+#    tensorflow_gpu==${TENSORFLOW} \
+#    keras==${KERAS}
